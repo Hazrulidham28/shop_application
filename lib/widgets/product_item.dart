@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop_application/screen/product_detail_screen.dart';
 
 class ProductItem extends StatelessWidget {
   final String id;
@@ -14,9 +15,18 @@ class ProductItem extends StatelessWidget {
       //use clipreact to make it more rounded corner
       borderRadius: BorderRadius.circular(10),
       child: GridTile(
-        child: Image.network(
-          imageUrl,
-          fit: BoxFit.cover,
+        child: GestureDetector(
+          onTap: () {
+            //forward an id to product detail screen using named route
+            Navigator.of(context).pushNamed(
+              ProductDetailScreen.routeName,
+              arguments: id,
+            );
+          },
+          child: Image.network(
+            imageUrl,
+            fit: BoxFit.cover,
+          ),
         ),
         footer: GridTileBar(
           //leading is at the left
