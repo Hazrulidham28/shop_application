@@ -10,10 +10,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //
-    return ChangeNotifierProvider(
+    return ChangeNotifierProvider.value(
       //use create instead of build
       //refer to products class that contain the data
-      create: (ctx) => Products(),
+      value: Products(),
       child: MaterialApp(
         title: 'MyShop',
         theme: ThemeData(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../widgets/product_grid.dart';
 //
-import 'package:provider/provider.dart';
-import '../provider/products_provider.dart';
+// import 'package:provider/provider.dart';
+// import '../provider/products_provider.dart';
 
 enum FilterOptions { Favorites, All }
 
