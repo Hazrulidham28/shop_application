@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shop_application/models/product.dart';
+import 'package:shop_application/provider/product.dart';
 
 //change notifier related to inheritance widget
 class Products with ChangeNotifier {
@@ -49,5 +49,10 @@ class Products with ChangeNotifier {
 
     //let the widget that listening to this class know and get latest data
     notifyListeners();
+  }
+
+  //return type product
+  Product findById(String id) {
+    return _items.firstWhere((prod) => prod.id == id);
   }
 }

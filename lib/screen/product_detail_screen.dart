@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../provider/products_provider.dart';
 
 class ProductDetailScreen extends StatelessWidget {
   const ProductDetailScreen({super.key});
@@ -10,9 +12,15 @@ class ProductDetailScreen extends StatelessWidget {
     //extract id from pushedNamed
     final productId = ModalRoute.of(context)!.settings.arguments as String;
 
-    //get data using id
+    //get data using id from provider by usign firstwhere
+    //will rerun when provided object changed if set the listen to true, false will not rebuild and not intrested in update
+    final loadedProduct =
+        Provider.of<Products>(context, listen: false).findById(productId);
+
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(loadedProduct.title),
+      ),
     );
   }
 }
