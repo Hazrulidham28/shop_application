@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_application/provider/cart.dart';
 import 'package:shop_application/provider/product.dart';
 import 'package:shop_application/screen/product_detail_screen.dart';
 
@@ -14,6 +15,7 @@ class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context);
+    final cart = Provider.of<Cart>(context, listen: false);
     return ClipRRect(
       //use clipreact to make it more rounded corner
       borderRadius: BorderRadius.circular(10),
@@ -49,8 +51,11 @@ class ProductItem extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           //trailing at the right
-          trailing: Icon(
-            Icons.shopping_cart,
+          trailing: IconButton(
+            onPressed: () {
+              cart.addItem(product.id, product.price, product.title);
+            },
+            icon: Icon(Icons.shopping_cart),
             //need to set accent color as secondary color
             color: Colors.deepOrange,
           ),
