@@ -54,6 +54,16 @@ class ProductItem extends StatelessWidget {
           trailing: IconButton(
             onPressed: () {
               cart.addItem(product.id, product.price, product.title);
+              //establish connection to nearese widget layout
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    'Added item to cart',
+                    textAlign: TextAlign.center,
+                  ),
+                  duration: Duration(seconds: 2),
+                ),
+              );
             },
             icon: Icon(Icons.shopping_cart),
             //need to set accent color as secondary color

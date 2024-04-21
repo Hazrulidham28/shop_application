@@ -6,6 +6,7 @@ import 'package:shop_application/screen/orders_screen.dart';
 import 'package:shop_application/screen/product_detail_screen.dart';
 import 'package:shop_application/screen/products_overview_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shop_application/screen/user_products_screen.dart';
 import './provider/products_provider.dart';
 
 void main() => runApp(MyApp());
@@ -15,6 +16,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     //to use multiple provider
     return MultiProvider(
+      //tree
+      //providers,child
       providers: [
         ChangeNotifierProvider(
           //use create instead of build
@@ -44,6 +47,7 @@ class MyApp extends StatelessWidget {
           ProductDetailScreen.routeName: (context) => ProductDetailScreen(),
           CartScreen.routeName: (context) => CartScreen(),
           OrderScreen.routeName: (context) => OrderScreen(),
+          UserProductsScreen.routeName: (context) => UserProductsScreen(),
         },
       ),
     );
