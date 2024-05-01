@@ -9,7 +9,7 @@ class ProductDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //extract id from pushedNamed
+    //extract id from pushedNamed from product_item
     final productId = ModalRoute.of(context)!.settings.arguments as String;
 
     //get data using id from provider by usign firstwhere

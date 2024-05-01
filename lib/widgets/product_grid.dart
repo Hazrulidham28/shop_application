@@ -11,6 +11,8 @@ class ProductsGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     //user provider
     //<> tell to listen Products
+
+    //call the provider in the provider class of products
     final productsData = Provider.of<Products>(context);
 
     final products = showFavs ? productsData.favoriteItems : productsData.items;

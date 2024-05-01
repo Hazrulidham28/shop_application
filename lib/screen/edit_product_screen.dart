@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
+import 'package:shop_application/provider/product.dart';
 
 class EditProductScreen extends StatefulWidget {
   static const routeName = '/edit-product';
@@ -15,6 +18,15 @@ class _EditProductScreenState extends State<EditProductScreen> {
   final _imageUrlController = TextEditingController();
 
   final _imageUrlFocusNode = FocusNode();
+
+  final _form = GlobalKey<FormState>();
+  var _editedProduct = Product(
+    id: '',
+    title: '',
+    description: '',
+    price: 0,
+    imageUrl: '',
+  );
 
   @override
   void initState() {
@@ -41,6 +53,15 @@ class _EditProductScreenState extends State<EditProductScreen> {
     }
   }
 
+  void _saveForm() {
+    //method to save edit product
+    //save is provided by flutter
+    _form.currentState!.save();
+    print(_editedProduct.title);
+    print(_editedProduct.description);
+    print(_editedProduct.price);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,10 +69,17 @@ class _EditProductScreenState extends State<EditProductScreen> {
         title: Text(
           'Edit Product',
         ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.save),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Form(
+          key: _form,
           child: ListView(
             children: [
               TextFormField(
@@ -63,6 +91,15 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 onFieldSubmitted: (_) {
                   FocusScope.of(context).requestFocus(_priceFocusNode);
                 },
+                onSaved: (value) {
+                  _editedProduct = Product(
+                    id: '',
+                    title: value as String,
+                    description: _editedProduct.description,
+                    price: _editedProduct.price,
+                    imageUrl: _editedProduct.imageUrl,
+                  );
+                },
               ),
               TextFormField(
                 decoration: InputDecoration(
@@ -72,6 +109,17 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 //will move to next input
                 textInputAction: TextInputAction.next,
                 focusNode: _priceFocusNode,
+                onSaved: (value) {
+                  double parsedValue =
+                      double.tryParse(value as String) as double;
+                  _editedProduct = Product(
+                    id: '',
+                    title: _editedProduct.title,
+                    description: _editedProduct.description,
+                    price: parsedValue,
+                    imageUrl: _editedProduct.imageUrl,
+                  );
+                },
               ),
               TextFormField(
                 decoration: InputDecoration(
@@ -84,6 +132,15 @@ class _EditProductScreenState extends State<EditProductScreen> {
                 textInputAction: TextInputAction.next,
                 onFieldSubmitted: (_) {
                   FocusScope.of(context).requestFocus(_descriptionFocusNode);
+                },
+                onSaved: (value) {
+                  _editedProduct = Product(
+                    id: '',
+                    title: _editedProduct.title,
+                    description: value as String,
+                    price: _editedProduct.price,
+                    imageUrl: _editedProduct.imageUrl,
+                  );
                 },
               ),
               Row(
@@ -113,6 +170,18 @@ class _EditProductScreenState extends State<EditProductScreen> {
                       textInputAction: TextInputAction.done,
                       controller: _imageUrlController,
                       focusNode: _imageUrlFocusNode,
+                      //onfield submitted expect function so we used empty function
+                      //just to call saveform function
+                      onFieldSubmitted: (_) => {_saveForm()},
+                      onSaved: (value) {
+                        _editedProduct = Product(
+                          id: '',
+                          title: _editedProduct.title,
+                          description: _editedProduct.description,
+                          price: _editedProduct.price,
+                          imageUrl: value as String,
+                        );
+                      },
                     ),
                   ),
                 ],
