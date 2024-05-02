@@ -50,9 +50,17 @@ class Products with ChangeNotifier {
     return [..._items];
   }
 
-  void addproduct() {
+  void addproduct(Product product) {
     //_items.add(value);
+    final newProduct = Product(
+        id: DateTime.now().toString(),
+        title: product.title,
+        description: product.description,
+        price: product.price,
+        imageUrl: product.imageUrl);
 
+    _items.add(newProduct);
+    _items.insert(0, newProduct);
     //let the widget that listening to this class know and get latest data
     notifyListeners();
   }
